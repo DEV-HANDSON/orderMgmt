@@ -29,8 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public CustomerOrder saveOrder(CustomerOrder order) {
-		
-		return null;
+		return customerOrderRepository.save(order);
 	}
 
 }

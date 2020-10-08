@@ -34,7 +34,7 @@ public class OrderManagementController {
 	@PostMapping("/saveOrders")
 	public ResponseEntity<Void> saveEmployees(@RequestBody CustomerOrder order) {
 		HttpHeaders header = new HttpHeaders();
-		CustomerOrder customerOrder = orderService.saveOrder(order);
+		 orderService.saveOrder(order);
 		header.add("desc", "save order");
 		return ResponseEntity.status(HttpStatus.OK).headers(header).build();
 	}
