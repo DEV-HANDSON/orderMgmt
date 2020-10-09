@@ -3,16 +3,25 @@ This is a Order Management module which will have 3 layers of code
 Controller, Service, DAO
 
 Controller:
-OrderManagement.java
+OrderManagementController.java
 
 Service: 
 OrderService.java
 
-DAO:
-OrderDao.java
+Repository:
+CustomerOrderRepository.java
 
 Domain object:
 CustomerOrder.java
+
+OrderCustomer:
+   {
+     
+        "orderType": "new",
+        "orderDescription": "abc125",
+        "orderDate": "08-10-2020",
+        "customerId": "1"
+    }
 
 
 
