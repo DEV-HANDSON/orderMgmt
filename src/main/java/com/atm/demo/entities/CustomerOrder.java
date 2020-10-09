@@ -19,6 +19,9 @@ public class CustomerOrder implements Serializable {
 		this.orderDate = orderDate;
 		this.customerId = customerId;
 	}
+	public CustomerOrder() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getOrderId() {
 		return orderId;
 	}
