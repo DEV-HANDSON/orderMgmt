@@ -3,10 +3,12 @@ package com.atm.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.atm.demo.exception.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,12 +28,24 @@ public class OrderManagementController {
 	@Autowired
 	private OrderService orderService;
 
+	@GetMapping("/firstOrder")
+	public void getData() {
+		System.out.println("data");
+       throw  new RuntimeException("no data found");
+	}
+
 	@GetMapping("/getOrders")
 	public ResponseEntity<List<CustomerOrder>> getOrders() {
 		HttpHeaders header = new HttpHeaders();
 		header.add("desc", "order list");
 		List<CustomerOrder> list = orderService.getOrders();
-		return ResponseEntity.status(HttpStatus.OK).headers(header).body(list);
+
+		if(!CollectionUtils.isEmpty(list)){
+			return ResponseEntity.status(HttpStatus.OK).headers(header).body(list);
+		}else{
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(header).body(list);
+		}
+
 	}
 	
 	@GetMapping("/get-order/{orderId}")
@@ -40,9 +54,9 @@ public class OrderManagementController {
 		header.add("desc", "order list");
 		Optional<CustomerOrder> customerOrder = orderService.getOrderById(orderId);
 		if(customerOrder.isPresent())
-		return ResponseEntity.status(HttpStatus.OK).headers(header).body(customerOrder.get());
+	       throw new CustomException("not found");
 		else
-			return ResponseEntity.status(HttpStatus.OK).headers(header).body(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).headers(header).body(null);
 	}
 
 	@PostMapping("/saveOrders")
